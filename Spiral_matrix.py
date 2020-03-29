@@ -1,30 +1,45 @@
-# cook your dish here
-l1=[[1,2,3,4,5],
-    [6,7,8,9,10],
-    [11,12,13,14,15],
-    [16,17,18,19,20],
-    [21,22,23,24,25],
-    [26,27,28,29,30]]
+def spiralOrder(arr):
+    top = 0
+    bottom = len(arr)-1
+    left = 0
+    right = len(arr[0])-1
+    dir = 0
+    res = []
+    while (top <= bottom and left <=right):    
+        if dir ==0:
+            for i in range(left,right+1): 
+                res.append(arr[top][i])
+            top +=1
+            dir = 1
+
+        elif dir ==1:
+            for i in range(top,bottom+1): 
+                res.append(arr[i][right])
+            right -=1 
+            dir = 2
+            
+        elif dir ==2:
+            for i in range(right,left-1,-1): 
+                res.append(arr[bottom][i])
+            bottom -=1
+            dir = 3
+            
+        elif dir ==3:
+            for i in range(bottom,top-1,-1): 
+                res.append(arr[i][left])
+            left +=1
+            dir = 0
+    return res
+
+if __name__ == '__main__':
+    row = input().split()
+    n = int(row[0])
+    m = int(row[1])
+    grid = []
+    for i in range(n):
+        nums = input().split()
+        nums = [int(i) for i in nums]
+        grid.append(nums)
+    result = spiralOrder(grid)
+    print(result)
     
-l,r,u,d=0,4,0,5
-while(l<r and u<d):
-    for w in range(l,r+1):
-        print(l1[u][w]," ",)
-    u+=1
-    for w in range(u,d+1):
-        print(l1[w][r]," ",)
-    r-=1
-    for w in range(r,l-1,-1):
-        print(l1[d][w]," ",)
-    d-=1
-    for w in range(d,u-1,-1):
-        print(l1[w][l]," ",)
-    l+=1
- 
-if(l<r):
-    for w in range(l,r+1):
-        print(l1[u][w]," ",)
-if(u<d):
-    for w in range(u,d+1):
-        print(l1[w][l]," ",)
-        
